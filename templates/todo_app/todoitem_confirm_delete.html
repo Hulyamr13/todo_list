@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Delete To-do Item</h3>
+
+<p>Are you sure you want to delete the item: <b>{{ object.title }}</b> from the list <i>{{ todo_list.title }}</i>?</p>
+
+<form method="POST" id="delete-form">
+    {% csrf_token %}
+    <button type="submit" class="btn-delete">Yes, delete</button>
+    <button type="button" class="btn-cancel" onclick="location.href='{% url 'list' todo_list.id %}';">Cancel</button>
+</form>
+
+<script>
+    document.getElementById('delete-form').addEventListener('submit', function(event) {
+        var confirmDelete = confirm('Are you sure you want to delete this item?');
+        if (!confirmDelete) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+{% endblock %}
